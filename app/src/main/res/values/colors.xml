@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="green">#8BC34A</color>
-    <color name="yellow">#FFEB3B</color>
-    <color name="red">#F44336</color>
+    <color name="primary">#6750A4</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="surface">#FEF7FF</color>
+
+    <!-- Status Colors -->
+    <color name="bmi_underweight">#FFB4AB</color>
+    <color name="bmi_healthy">#B4E197</color>
+    <color name="bmi_overweight">#FFD8E4</color>
+
+    <color name="black">#1C1B1F</color>
+    <color name="white">#FFFFFF</color>
 </resources>

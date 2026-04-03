@@ -6,12 +6,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.card.MaterialCardView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int wt = Integer.parseInt(edtWeight.getText().toString());
+               /* int wt = Integer.parseInt(edtWeight.getText().toString());
                 int heightFt = Integer.parseInt(edtHeightFt.getText().toString());
                 int heightIn = Integer.parseInt(edtHeightIn.getText().toString());
 
@@ -62,7 +65,43 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     txtResult.setText("You're Healthy");
                     llMain.setBackgroundColor(getResources().getColor(R.color.green));
-            }
+            }*/
+
+                // Inside your onClick listener
+                String weightStr = edtWeight.getText().toString();
+                String ftStr = edtHeightFt.getText().toString();
+                String inStr = edtHeightIn.getText().toString();
+
+                // Validation: Don't crash if fields are empty!
+                if (weightStr.isEmpty() || ftStr.isEmpty() || inStr.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter all values", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                double wt = Double.parseDouble(weightStr);
+                int heightFt = Integer.parseInt(ftStr);
+                int heightIn = Integer.parseInt(inStr);
+
+                // Logic remains the same, but update the UI professionally
+                int totalHeight = heightFt * 12 + heightIn;
+                double totalCm = totalHeight * 2.54;
+                double totalM = totalCm / 100;
+                double bmiValue = wt / (totalM * totalM);
+
+                MaterialCardView resultCard = findViewById(R.id.result_card);
+                resultCard.setVisibility(View.VISIBLE);
+
+                if (bmiValue > 25) {
+                    txtResult.setText(String.format("BMI: %.1f\nYou're Overweight", bmiValue));
+                    resultCard.setCardBackgroundColor(getResources().getColor(R.color.bmi_overweight));
+                } else if (bmiValue < 18.5) {
+                    txtResult.setText(String.format("BMI: %.1f\nYou're Underweight", bmiValue));
+                    resultCard.setCardBackgroundColor(getResources().getColor(R.color.bmi_underweight));
+                } else {
+                    txtResult.setText(String.format("BMI: %.1f\nYou're Healthy", bmiValue));
+                    resultCard.setCardBackgroundColor(getResources().getColor(R.color.bmi_healthy));
+                }
+
             }
         });
 
